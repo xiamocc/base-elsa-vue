@@ -1,6 +1,6 @@
 {
-  "name": "elsa-vue",
-  "version": "1.1.1",
+  "name": "base-elsa-vue",
+  "version": "1.0.0",
   "description": "",
   "main": "libs/elsa.common.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eminoda/elsa.git"
+    "url": "git+https://github.com/xiamocc/base-elsa-vue.git"
   },
   "keywords": [
     "eleme",
@@ -24,9 +24,9 @@
   "author": "eminoda",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eminoda/elsa/issues"
+    "url": "https://github.com/xiamocc/base-elsa-vue/issues"
   },
-  "homepage": "https://github.com/eminoda/elsa#readme",
+  "homepage": "https://github.com/xiamocc/base-elsa-vue#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
@@ -45,7 +45,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "element-ui": "^2.15.0",
-    "vue": "^2.6.12"
+    "element-ui": "^2.15.7",
+    "vue": "^2.6.14"
   }
 }
