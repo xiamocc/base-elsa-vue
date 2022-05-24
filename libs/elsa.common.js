@@ -716,6 +716,7 @@ var windowHeight = parseInt(window.innerHeight);
 
       var elProps = this.$attrs;
       elProps.data = dataSource;
+      elProps.height = this.autoHeight.height;
       var tableRows = columns.reduce(function (acc, column) {
         acc.push(_this.buildElColumnRender(column));
         return acc;
@@ -737,12 +738,12 @@ var windowHeight = parseInt(window.innerHeight);
   },
   render: function render(h) {
     return h('div', {
-      staticClass: "".concat(prefix, "-table"),
+      "class": "".concat(prefix, "-table"),
       style: {
         width: '100%',
         height: '100%'
       }
-    }[(this.renderTable(), this.renderPagination())]);
+    }, [this.renderTable(), this.renderPagination()]);
   }
 });
 // CONCATENATED MODULE: ./src/components/table/Table.vue?vue&type=script&lang=js&

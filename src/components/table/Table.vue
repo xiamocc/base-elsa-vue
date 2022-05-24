@@ -78,7 +78,7 @@ export default {
       // https://element.eleme.io/#/zh-CN/component/table#table-attributes
       const elProps = this.$attrs
       elProps.data = dataSource
-
+      elProps.height = this.autoHeight.height
       const tableRows = columns.reduce((acc, column) => {
         acc.push(this.buildElColumnRender(column))
         return acc
@@ -111,7 +111,7 @@ export default {
           height: '100%',
         },
       },
-      [(this.renderTable(), this.renderPagination())]
+      [this.renderTable(), this.renderPagination()]
     )
   },
 }
