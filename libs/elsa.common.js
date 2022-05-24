@@ -622,6 +622,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+var windowHeight = parseInt(window.innerHeight);
 /* harmony default export */ var Tablevue_type_script_lang_js_ = ({
   name: "".concat(prefix, "-table"),
   inheritAttrs: false,

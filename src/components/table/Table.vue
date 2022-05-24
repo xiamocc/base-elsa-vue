@@ -1,7 +1,7 @@
 <script>
 import { toHyphenateEvent } from '../utils'
 import { prefix } from '../config'
-
+let windowHeight = parseInt(window.innerHeight)
 export default {
   name: `${prefix}-table`,
   inheritAttrs: false,
