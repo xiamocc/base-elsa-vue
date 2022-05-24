@@ -4,22 +4,55 @@ import { prefix } from '../config'
 
 export default {
   name: `${prefix}-table`,
+  inheritAttrs: false,
   props: {
     columns: {
       type: Array,
       default() {
         return []
-      }
+      },
     },
     dataSource: {
       type: Array,
       default() {
         return []
-      }
+      },
     },
-    pagination: Object
+    // 分页配置
+    pagination: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+    config: {
+      type: Object,
+      default() {
+        return {
+          diffHeight: 440,
+        }
+      },
+    },
+  },
+  data() {
+    return {
+      windowHeight: windowHeight,
+      autoHeight: {
+        height: '',
+      },
+    }
+  },
+  created() {
+    window.addEventListener('resize', this.getHeight)
+    this.getHeight()
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.getHeight)
   },
   methods: {
+    getHeight() {
+      this.autoHeight.height = windowHeight - this.config.diffHeight + 'px'
+    },
     buildElColumnRender(column) {
       const { customRender, ...rest } = column
       if (customRender) {
@@ -31,8 +64,8 @@ export default {
             scopedSlots: {
               default: ({ row, column, $index }) => {
                 return customRenderFn({ row, column, $index })
-              }
-            }
+              },
+            },
           })
         } else {
           console.warn(`未正确配置自定义 customRender 模板: ${customRender}`)
@@ -54,7 +87,7 @@ export default {
         'el-table',
         {
           props: elProps,
-          on: toHyphenateEvent(this.$listeners)
+          on: toHyphenateEvent(this.$listeners),
         },
         tableRows
       )
@@ -62,17 +95,23 @@ export default {
     renderPagination() {
       if (this.pagination) {
         return this.$createElement(`${prefix}-pagination`, {
-          props: this.pagination
+          props: this.pagination,
         })
       }
       return ''
-    }
+    },
   },
-  render: function(h) {
-    return h('div', [this.renderTable(), this.renderPagination()])
-  }
+  render: function (h) {
+    return h(
+      'div',
+      {
+        staticClass: `${prefix}-table`,
+        style: {
+          width: '100%',
+          height: '100%',
+        },
+      }[(this.renderTable(), this.renderPagination())]
+    )
+  },
 }
 </script>
-
-<style>
-</style>

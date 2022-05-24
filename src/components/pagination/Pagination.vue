@@ -1,6 +1,6 @@
 <script>
-import { toHyphenateEvent } from '../utils';
-import { prefix } from '../config';
+import { toHyphenateEvent } from '../utils'
+import { prefix } from '../config'
 
 export default {
   name: `${prefix}-pagination`,
@@ -20,7 +20,7 @@ export default {
     pageSizes: {
       type: Array,
       default() {
-        return [10, 20, 30, 50];
+        return [10, 20, 30, 50]
       },
     },
     layout: {
@@ -39,27 +39,44 @@ export default {
       type: Boolean,
       default: false,
     },
-    currentChange: Function,
-    prevClick: Function,
-    nextClick: Function,
-    sizeChange: Function,
+    currentChange: {
+      type: Function,
+      default() {
+        return () => {}
+      },
+    },
+    prevClick: {
+      type: Function,
+      default() {
+        return () => {}
+      },
+    },
+    nextClick: {
+      type: Function,
+      default() {
+        return () => {}
+      },
+    },
+    sizeChange: {
+      type: Function,
+      default() {
+        return () => {}
+      },
+    },
   },
-  render: function(h) {
-    const { hidden, autoScroll, currentChange, prevClick, nextClick, sizeChange, ...elProps } = this.$props;
+  render: function (h) {
+    const { currentChange, prevClick, nextClick, sizeChange, ...elProps } = this.$props
     if (this.$props.total) {
       return h('el-pagination', {
         style: {
-          'margin-top': '30px',
-          'margin-right': '10px',
+          margin: '16px 12px',
           'text-align': 'right',
         },
         props: elProps,
         on: toHyphenateEvent({ currentChange, prevClick, nextClick, sizeChange }),
-      });
+      })
     }
-    return null;
+    return null
   },
-};
+}
 </script>
-
-<style></style>
