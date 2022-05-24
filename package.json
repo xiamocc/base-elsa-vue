@@ -1,12 +1,11 @@
 {
   "name": "base-elsa-vue",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "libs/elsa.common.js",
   "scripts": {
     "build": "webpack --config=./build/webpack.config.js --mode=production",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "yarn run build && yarn publish"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
