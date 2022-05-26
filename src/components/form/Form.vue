@@ -7,10 +7,11 @@ import { prefix } from '../config'
 export default {
   name: `${prefix}-form`,
   components: { FormItem },
+  inheritAttrs: false,
   props: {
     config: Object,
     layout: Array,
-    disabled: Boolean
+    disabled: Boolean,
   },
   computed: {
     rules() {
@@ -21,7 +22,7 @@ export default {
     },
     elFormOptions() {
       return this.$attrs
-    }
+    },
   },
   methods: {
     _$render(a, b, c, d) {
@@ -29,7 +30,7 @@ export default {
     },
     _setDefaultRule(field, rules = []) {
       const { label } = this.config[field]
-      rules.forEach(rule => {
+      rules.forEach((rule) => {
         if (rule.required && !rule.message) {
           rule.message = label + '不能为空'
         }
@@ -108,7 +109,7 @@ export default {
       } else {
         const fieldRefs = this.$refs.elFormRef.fields
         const curFields = Array.isArray(props) ? props : [props]
-        curFields.forEach(curField => {
+        curFields.forEach((curField) => {
           for (let i = 0; i < fieldRefs.length; i++) {
             const field = fieldRefs[i].prop
             if (field == curField) {
@@ -203,7 +204,7 @@ export default {
           value: this.getPathValue(field),
           fieldOptions: this.config[field],
           model: this.elFormOptions.model,
-          scopedSlots: this.getSlotRender(field)
+          scopedSlots: this.getSlotRender(field),
         },
         on: {
           change: ({ value, options }) => {
@@ -214,8 +215,8 @@ export default {
               changeMethod.bind(this)({ value, model, field, rules: this.rules, options })
             }
             this.$emit('change', { model, field, value })
-          }
-        }
+          },
+        },
       })
     },
     drawLayout(layout = []) {
@@ -264,7 +265,7 @@ export default {
         return this.$scopedSlots.default()
       }
       return ''
-    }
+    },
   },
   render(h) {
     // console.log(this.elFormOptions)
@@ -273,11 +274,11 @@ export default {
       {
         props: this.elFormOptions,
         on: toHyphenateEvent(this.$listeners),
-        ref: 'elFormRef'
+        ref: 'elFormRef',
       },
       [...this.drawLayout(this.layout), ...this.renderActionBar()]
     )
-  }
+  },
 }
 </script>
 

@@ -29,7 +29,7 @@ export default {
       type: Object,
       default() {
         return {
-          diffHeight: 440,
+          diffHeight: 0,
         }
       },
     },
@@ -37,10 +37,16 @@ export default {
   data() {
     return {
       windowHeight: windowHeight,
-      autoHeight: {
-        height: '',
-      },
+      autoHeight: '',
     }
+  },
+  watch: {
+    config: {
+      handler(val) {
+        this.autoHeight = val.diffHeight ? parseInt(window.innerHeight) - val.diffHeight + 'px' : null
+      },
+      deep: true,
+    },
   },
   created() {
     window.addEventListener('resize', this.getHeight)
@@ -51,7 +57,7 @@ export default {
   },
   methods: {
     getHeight() {
-      this.autoHeight.height = windowHeight - this.config.diffHeight + 'px'
+      this.autoHeight = this.config.diffHeight ? parseInt(window.innerHeight) - this.config.diffHeight + 'px' : null
     },
     buildElColumnRender(column) {
       const { customRender, ...rest } = column
@@ -78,7 +84,6 @@ export default {
       // https://element.eleme.io/#/zh-CN/component/table#table-attributes
       const elProps = this.$attrs
       elProps.data = dataSource
-      elProps.height = this.autoHeight.height
       const tableRows = columns.reduce((acc, column) => {
         acc.push(this.buildElColumnRender(column))
         return acc
@@ -86,7 +91,11 @@ export default {
       return this.$createElement(
         'el-table',
         {
-          props: elProps,
+          props: {
+            ...elProps,
+            height: this.autoHeight,
+          },
+
           on: toHyphenateEvent(this.$listeners),
         },
         tableRows

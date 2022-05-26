@@ -2,7 +2,7 @@
   <div id="app">
     <el-container>
       <!-- <el-header> </el-header> -->
-      <el-aside style="width:200px;">
+      <el-aside style="width: 200px">
         <el-menu router :default-active="activeIndex" class="el-menu-demo">
           <template v-for="(route, index) in routes">
             <el-submenu v-if="route.children && route.children.length > 0" :key="index" :index="route.path">
@@ -11,11 +11,13 @@
                 childItem.meta.title
               }}</el-menu-item>
             </el-submenu>
-            <el-menu-item v-else :key="index" :index="route.path">{{ route.meta.title }}</el-menu-item>
+            <template v-else>
+              <el-menu-item :key="index" :index="route.path">{{ route.meta.title }}</el-menu-item>
+            </template>
           </template>
         </el-menu>
       </el-aside>
-      <el-main style="max-width: 80%; margin: auto;">
+      <el-main style="max-width: 80%; margin: auto">
         <router-view />
       </el-main>
       <!-- <el-footer>Footer</el-footer> -->
@@ -33,19 +35,19 @@ export default {
     const { options, currentRoute } = this.$router
     return {
       activeIndex: currentRoute.fullPath,
-      routes: options.routes
+      routes: options.routes,
     }
   },
   methods: {
     resolvePath(basePath = '', routePath = '') {
       return path.resolve(basePath, routePath)
-    }
+    },
   },
   watch: {
     $route(newVal) {
       this.activeIndex = newVal.path
-    }
-  }
+    },
+  },
 }
 </script>
 

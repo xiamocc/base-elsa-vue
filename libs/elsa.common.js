@@ -616,6 +616,12 @@ var prefix = 'elsa';
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/table/Table.vue?vue&type=script&lang=js&
 var _excluded = ["customRender"];
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -650,7 +656,7 @@ var windowHeight = parseInt(window.innerHeight);
       type: Object,
       "default": function _default() {
         return {
-          diffHeight: 440
+          diffHeight: 0
         };
       }
     }
@@ -658,10 +664,16 @@ var windowHeight = parseInt(window.innerHeight);
   data: function data() {
     return {
       windowHeight: windowHeight,
-      autoHeight: {
-        height: ''
-      }
+      autoHeight: ''
     };
+  },
+  watch: {
+    config: {
+      handler: function handler(val) {
+        this.autoHeight = val.diffHeight ? parseInt(window.innerHeight) - val.diffHeight + 'px' : null;
+      },
+      deep: true
+    }
   },
   created: function created() {
     window.addEventListener('resize', this.getHeight);
@@ -672,7 +684,7 @@ var windowHeight = parseInt(window.innerHeight);
   },
   methods: {
     getHeight: function getHeight() {
-      this.autoHeight.height = windowHeight - this.config.diffHeight + 'px';
+      this.autoHeight = this.config.diffHeight ? parseInt(window.innerHeight) - this.config.diffHeight + 'px' : null;
     },
     buildElColumnRender: function buildElColumnRender(column) {
       var customRender = column.customRender,
@@ -716,13 +728,14 @@ var windowHeight = parseInt(window.innerHeight);
 
       var elProps = this.$attrs;
       elProps.data = dataSource;
-      elProps.height = this.autoHeight.height;
       var tableRows = columns.reduce(function (acc, column) {
         acc.push(_this.buildElColumnRender(column));
         return acc;
       }, []);
       return this.$createElement('el-table', {
-        props: elProps,
+        props: _objectSpread(_objectSpread({}, elProps), {}, {
+          height: this.autoHeight
+        }),
         on: toHyphenateEvent(this.$listeners)
       }, tableRows);
     },
@@ -884,11 +897,11 @@ var external_is_type_of_ = __webpack_require__(0);
 var external_is_type_of_default = /*#__PURE__*/__webpack_require__.n(external_is_type_of_);
 
 // CONCATENATED MODULE: ./src/components/mixins/UtilMixins.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function UtilMixins_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function UtilMixins_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? UtilMixins_ownKeys(Object(source), !0).forEach(function (key) { UtilMixins_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : UtilMixins_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function UtilMixins_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -906,7 +919,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               args[_key] = arguments[_key];
             }
 
-            return elAttrs[prop].bind(self).apply(void 0, args.concat([_objectSpread({
+            return elAttrs[prop].bind(self).apply(void 0, args.concat([UtilMixins_objectSpread({
               model: self.model
             }, options)]));
           };
@@ -1660,6 +1673,7 @@ function Formvue_type_script_lang_js_objectWithoutPropertiesLoose(source, exclud
   components: {
     FormItem: Index
   },
+  inheritAttrs: false,
   props: {
     config: Object,
     layout: Array,
