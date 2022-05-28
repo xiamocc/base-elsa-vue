@@ -48,6 +48,7 @@ Vue.use(Elsa)
 ## todo
 
 - 结构优化.精简冗余配置以及依赖
+- 更多表单类配置功能
 
 ## elsa-table
 
